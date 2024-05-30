@@ -12,6 +12,11 @@ fastapi = "^0.111.0"
 uvicorn = "^0.30.0"
 aiohttp = "^3.9.5"
 
+[tool.isort]
+profile = "black"
+
+[tool.black]
+line-length = 120
 
 [build-system]
 requires = ["poetry-core"]
