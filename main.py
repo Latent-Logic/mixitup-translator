@@ -10,6 +10,8 @@ from fastapi.responses import JSONResponse, PlainTextResponse
 
 log = logging.getLogger("mixit-pronoun-translator")
 
+logging.basicConfig(level=logging.INFO, format="%(asctime)s\t%(levelname)s\t%(name)s\t%(message)s")
+
 
 class NoRefreshException(Exception):
     pass
@@ -83,6 +85,24 @@ class Users:
             user_resource = self.users[user.lower()]
         return user_resource.data
 
+    async def flush_users(self):
+        log.info("Starting flush_users task")
+        while True:
+            try:
+                await asyncio.sleep(600)
+            except asyncio.CancelledError:
+                break
+            clear_time = datetime.now(tz=timezone.utc) - RemoteResource.refresh_max
+            to_clear = []
+            for key, value in self.users.items():
+                if value.last_refreshed < clear_time:
+                    to_clear.append(key)
+            for key in to_clear:
+                del self.users[key]
+            if to_clear:
+                log.debug(f"Cleared out {to_clear}")
+        log.info("Shutting down flush_users task")
+
     @staticmethod
     def convert_json(pronouns: dict, user: dict) -> dict:
         if "error" in user:
@@ -120,8 +140,12 @@ USERS = Users()
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     await PRONOUNS.fetch()  # Grab the pronouns db to start with
+    task = asyncio.create_task(USERS.flush_users())
 
     yield  # Run FastAPI stuff
+
+    task.cancel()
+    await task
 
 
 app = FastAPI(lifespan=lifespan)
