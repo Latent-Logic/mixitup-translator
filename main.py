@@ -86,7 +86,7 @@ class Users:
     @staticmethod
     def convert_json(pronouns: dict, user: dict) -> dict:
         if "error" in user:
-            raise HTTPException(status_code=409, detail="not_found")
+            raise HTTPException(status_code=404, detail="not_found")
         response = dict(user)
         response["pronoun"] = pronouns[user["pronoun_id"]]
         if user["alt_pronoun_id"]:
