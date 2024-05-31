@@ -101,6 +101,15 @@ class Users:
         else:
             response["display"] = f'{response["pronoun"]["subject"]}/{response["pronoun"]["object"]}'
 
+        if response["pronoun"]["singular"] or response["pronoun_id"] == "theythem":
+            response["subject"] = "They"
+            response["subject_own"] = "They're"
+            response["object"] = "Them"
+        else:
+            response["subject"] = response["pronoun"]["subject"]
+            response["subject_own"] = f"{response['subject']}'s"
+            response["object"] = response["pronoun"]["object"]
+
         return response
 
 
