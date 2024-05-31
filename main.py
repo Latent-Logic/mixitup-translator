@@ -103,11 +103,11 @@ class Users:
 
         if response["pronoun"]["singular"] or response["pronoun_id"] == "theythem":
             response["subject"] = "They"
-            response["subject_own"] = "They're"
+            response["subject_possessive"] = "They're"
             response["object"] = "Them"
         else:
             response["subject"] = response["pronoun"]["subject"]
-            response["subject_own"] = f"{response['subject']}'s"
+            response["subject_possessive"] = f"{response['subject']}'s"
             response["object"] = response["pronoun"]["object"]
 
         return response
