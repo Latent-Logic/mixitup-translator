@@ -1,2 +1,2 @@
-# mixitup-pronoun-translator
-Convert api.pronouns.alejo.io a cached endpoint for use w/ mixitup web request
+# mixitup-translator
+MixItUp API translator, read external APIs and translate into computed fields for use in commands

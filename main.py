@@ -8,7 +8,7 @@ import aiohttp
 from fastapi import FastAPI, HTTPException
 from fastapi.responses import JSONResponse, PlainTextResponse
 
-log = logging.getLogger("mixit-pronoun-translator")
+log = logging.getLogger("mixit-translator")
 
 logging.basicConfig(level=logging.INFO, format="%(asctime)s\t%(levelname)s\t%(name)s\t%(message)s")
 
@@ -93,10 +93,7 @@ class Users:
             except asyncio.CancelledError:
                 break
             clear_time = datetime.now(tz=timezone.utc) - RemoteResource.refresh_max
-            to_clear = []
-            for key, value in self.users.items():
-                if value.last_refreshed < clear_time:
-                    to_clear.append(key)
+            to_clear = [k for k, v in self.users.items() if v.last_refreshed < clear_time]
             for key in to_clear:
                 del self.users[key]
             if to_clear:
