@@ -162,6 +162,6 @@ if __name__ == "__main__":
     import uvicorn
 
     try:
-        uvicorn.run(app, host="localhost", port=55555)
+        uvicorn.run(app, host="0.0.0.0", port=55555)
     except KeyboardInterrupt:
         pass
