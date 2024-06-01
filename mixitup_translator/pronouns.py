@@ -8,6 +8,27 @@ from mixitup_translator.utils import NoRefreshException, RemoteResource
 
 log = logging.getLogger(__name__)
 
+_example_pronouns = {
+    "any": {"name": "any", "subject": "Any", "object": "Any", "singular": True},
+    "hehim": {"name": "hehim", "subject": "He", "object": "Him", "singular": False},
+    "other": {"name": "other", "subject": "Other", "object": "Other", "singular": True},
+    "theythem": {"name": "theythem", "subject": "They", "object": "Them", "singular": False},
+}
+
+_example_user_1 = {
+    "channel_id": "123456789",
+    "channel_login": "user1",
+    "pronoun_id": "hehim",
+    "alt_pronoun_id": "any",
+}
+
+_example_user_2 = {
+    "channel_id": "2345567890",
+    "channel_login": "user2",
+    "pronoun_id": "other",
+    "alt_pronoun_id": None,
+}
+
 
 class Pronouns(RemoteResource):
     url = "https://api.pronouns.alejo.io/v1/pronouns"
