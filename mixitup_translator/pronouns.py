@@ -109,6 +109,9 @@ class Users:
             response["subject"] = response["pronoun"]["subject"]
             response["subject_possessive"] = f"{response['subject']}'s"
             response["object"] = response["pronoun"]["object"]
+        response["subject_lower"] = response["subject"].lower()
+        response["subject_possessive_lower"] = response["subject_possessive"].lower()
+        response["object_lower"] = response["object"].lower()
 
         return response
 
