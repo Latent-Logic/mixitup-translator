@@ -98,6 +98,8 @@ class Users:
             response["display"] = f'{response["pronoun"]["subject"]}/{response["alt_pronoun"]["subject"]}'
         else:
             response["display"] = f'{response["pronoun"]["subject"]}/{response["pronoun"]["object"]}'
+        response["display_lower"] = response["display"].lower()
+        response["display_upper"] = response["display"].upper()
 
         if response["pronoun"]["singular"] or response["pronoun_id"] == "theythem":
             response["subject"] = "They"
