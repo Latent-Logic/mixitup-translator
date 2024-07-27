@@ -13,6 +13,7 @@ class NoRefreshException(Exception):
 
 
 class RemoteResource:
+    user_agent = f"{aiohttp.http.SERVER_SOFTWARE} github.com/Latent-Logic/mixitup-translator"
     refresh_min: timedelta = timedelta(minutes=1)
     refresh_max: timedelta = timedelta(hours=1)
     last_refreshed: datetime = datetime.fromisoformat("2020-01-01T01:01:01-00:00")
@@ -33,7 +34,7 @@ class RemoteResource:
 
     async def fetch(self, force: bool = False):
         self._should_refresh(force)
-        async with aiohttp.ClientSession() as session:
+        async with aiohttp.ClientSession(headers={aiohttp.hdrs.USER_AGENT: self.user_agent}) as session:
             async with session.get(self.url) as resp:
                 if resp.status == 404:
                     self.data = {"error": 404}
