@@ -1,10 +1,12 @@
 [tool.poetry]
 name = "mixitup-translator"
-version = "0.1.0"
+version = "0.1.1"
 description = "MixItUp API translator, read external APIs and translate into computed fields for use in commands"
 authors = ["Latent Logic <lat.logic@gmail.com>"]
 readme = "README.md"
 license = "MIT"
+keywords = ["mixitup", "api", "pronouns", "alejo"]
+repository = "https://github.com/Latent-Logic/mixitup-translator"
 
 [tool.poetry.dependencies]
 python = "^3.11"
